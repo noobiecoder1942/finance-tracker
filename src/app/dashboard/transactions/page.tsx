@@ -18,7 +18,7 @@ export default async function Transactions() {
 
     const data = await getData();
 
-    return <div>
+    return <div className="container mx-auto py-10">
         <DataTable columns={columns} data={data} />
     </div>
 }
