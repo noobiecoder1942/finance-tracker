@@ -14,9 +14,17 @@ export default function Sidebar() {
 
     const menuList = [
         {
+            group: "Dashboard",
+            items: [
+                {link: "/dashboard", text: "Home", icon: <User />},
+                {link: "/dashboard/transactions", text: "Transactions", icon: <Mail />},
+                {link: "/dashboard/accounts", text: "Accounts", icon: <Bell />},
+            ]
+        },
+        {
             group: "General",
             items: [
-                {link: "/", text: "Profile", icon: <User />},
+                {link: "/profile", text: "Profile", icon: <User />},
                 {link: "/", text: "Inbox", icon: <Mail />},
                 {link: "/", text: "Notifications", icon: <Bell />},
             ]
@@ -40,12 +48,12 @@ export default function Sidebar() {
 
                 {menuList.map((menu: any, key: number) => (
                     <CommandGroup key={key} heading={menu.group}>
-                        {menu.items.map((option: any, optionKey: number) => (
+                        {menu.items.map((option: any, optionKey: number) => 
                             <CommandItem key={optionKey} className="flex gap-2 cursor-pointer">
                                 {option.icon}
                                 {option.text}
                             </CommandItem>
-                        ))}
+                        )}
                     </CommandGroup>
                 ))}
 
