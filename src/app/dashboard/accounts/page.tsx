@@ -63,20 +63,20 @@ export default async function Accounts() {
         </div>
         <div>
             <h2 className="py-4">Brokerage Accounts</h2>
-                <div className="flex flex-row gap-4">
-                    {brokerageAccounts.map((acc, index) => (
-                        <AccountCard key={index} account={acc}
-                        />
-                    ))}
+            <div className="flex flex-row gap-4">
+                {brokerageAccounts.map((acc, index) => (
+                    <AccountCard key={index} account={acc}
+                    />
+                ))}
             </div>
         </div>
         <div>
             <h2 className="py-4">Retirement Accounts</h2>
-                <div className="flex flex-row gap-4">
-                    {retirementAccounts.map((acc, index) => (
-                        <AccountCard key={index} account={acc}
-                        />
-                    ))}
+            <div className="flex flex-row gap-4">
+                {retirementAccounts.map((acc, index) => (
+                    <AccountCard key={index} account={acc}
+                    />
+                ))}
             </div>
         </div>
     </div>
