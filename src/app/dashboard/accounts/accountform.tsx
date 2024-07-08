@@ -47,7 +47,7 @@ export default function AccountForm( {type}: AccountFormProps ) {
       case 'BANK':
         return (
           <div  className="grid grid-cols-4 items-center gap-4">
-            <Label htmlFor="fruit" className="text-right">
+            <Label htmlFor="bank" className="text-right">
               Bank
             </Label>
           
@@ -71,7 +71,7 @@ export default function AccountForm( {type}: AccountFormProps ) {
       case 'BROKERAGE':
         return (
           <div  className="grid grid-cols-4 items-center gap-4">
-            <Label htmlFor="fruit" className="text-right">
+            <Label htmlFor="broker" className="text-right">
               Broker
             </Label>
           
@@ -82,10 +82,10 @@ export default function AccountForm( {type}: AccountFormProps ) {
               <SelectContent>
                 <SelectGroup>
                   <SelectLabel>Brokers</SelectLabel>
-                  <SelectItem value="icici">Zerodha</SelectItem>
-                  <SelectItem value="sbi">Groww</SelectItem>
-                  <SelectItem value="canara">Dhan</SelectItem>
-                  <SelectItem value="hdfc">Coin DCX</SelectItem>
+                  <SelectItem value="zerodha">Zerodha</SelectItem>
+                  <SelectItem value="groww">Groww</SelectItem>
+                  <SelectItem value="dhan">Dhan</SelectItem>
+                  <SelectItem value="coindcx">Coin DCX</SelectItem>
                 </SelectGroup>
               </SelectContent>
             </Select>
@@ -94,7 +94,7 @@ export default function AccountForm( {type}: AccountFormProps ) {
       case 'RETIREMENT':
         return (
           <div  className="grid grid-cols-4 items-center gap-4">
-            <Label htmlFor="fruit" className="text-right">
+            <Label htmlFor="contributor" className="text-right">
               Contributor
             </Label>
           
@@ -105,8 +105,8 @@ export default function AccountForm( {type}: AccountFormProps ) {
               <SelectContent>
                 <SelectGroup>
                   <SelectLabel>Contributors</SelectLabel>
-                  <SelectItem value="icici">Employee EPF</SelectItem>
-                  <SelectItem value="sbi">Government PPF</SelectItem>
+                  <SelectItem value="empepf">Employee EPF</SelectItem>
+                  <SelectItem value="govtppf">Government PPF</SelectItem>
                 </SelectGroup>
               </SelectContent>
             </Select>
@@ -128,7 +128,7 @@ export default function AccountForm( {type}: AccountFormProps ) {
         <DialogHeader>
           <DialogTitle>Add a new Account</DialogTitle>
           <DialogDescription>
-            Fill up the following, click save when you're done.
+            Fill up the following, click save when you&apos;re done.
           </DialogDescription>
         </DialogHeader>
         <div className="grid gap-4 py-4">
