@@ -1,0 +1,3 @@
+type Holding = {
+    ticker: string
+}
