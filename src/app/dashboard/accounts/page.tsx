@@ -1,7 +1,13 @@
+"use client";
+
+import { Button } from "@/components/ui/button";
 import AccountCard from "./accountcard";
+import { NotebookPen, Plus } from "lucide-react";
+import { useState } from "react";
+import AccountForm from "./accountform";
 
 
-async function getData(): Promise<Account[]> {
+function getData(): Account[] {
     // Fetch data from your API here.
     return [
         {id: "1",
@@ -41,11 +47,11 @@ async function getData(): Promise<Account[]> {
         status: "ACTIVE",
         },    
     ]
-  }
+}
 
-export default async function Accounts() {
+export default function Accounts() {
 
-    const data = await getData();
+    const data = getData();
 
     const bankAccounts: Account[] = data.filter(acc => acc.type === 'BANK');
     const brokerageAccounts: Account[] = data.filter(acc => acc.type === 'BROKERAGE');
@@ -53,7 +59,10 @@ export default async function Accounts() {
 
     return <div className="flex flex-col gap-4 p-4">
         <div>
-            <h2 className="py-4">Bank Accounts</h2>
+            <div className="flex flex-row items-center gap-4">
+                <h2 className="py-4 text-3xl font-bold">Bank Accounts</h2>
+                <AccountForm type="BANK"/>
+            </div>
             <div className="flex flex-row gap-4">
                 {bankAccounts.map((acc, index) => (
                     <AccountCard key={index} account={acc}
@@ -62,7 +71,10 @@ export default async function Accounts() {
             </div>
         </div>
         <div>
-            <h2 className="py-4">Brokerage Accounts</h2>
+            <div className="flex flex-row items-center gap-4">
+                <h2 className="py-4 text-3xl font-bold">Brokerage Wallets</h2>
+                <AccountForm type="BROKERAGE"/>
+            </div>
             <div className="flex flex-row gap-4">
                 {brokerageAccounts.map((acc, index) => (
                     <AccountCard key={index} account={acc}
@@ -71,7 +83,10 @@ export default async function Accounts() {
             </div>
         </div>
         <div>
-            <h2 className="py-4">Retirement Accounts</h2>
+            <div className="flex flex-row items-center gap-4">
+                <h2 className="py-4 text-3xl font-bold">Retirement Accounts</h2>
+                <AccountForm type="RETIREMENT"/>
+            </div>
             <div className="flex flex-row gap-4">
                 {retirementAccounts.map((acc, index) => (
                     <AccountCard key={index} account={acc}
