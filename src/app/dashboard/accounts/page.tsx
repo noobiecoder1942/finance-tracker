@@ -10,7 +10,8 @@ async function getData(): Promise<Account[]> {
         balance: 1235,
         institution: "ICICI",
         invested: 5000.454,
-        profit: 2000
+        profit: 2000,
+        status: "ACTIVE",
         },
         {id: "2",
         type: "BANK",
@@ -18,7 +19,8 @@ async function getData(): Promise<Account[]> {
         balance: 54984,
         institution: "SBI",
         invested: 35000.4534,
-        profit: 8000.455
+        profit: 8000.455,
+        status: "SUSPENDED",
         },
         {id: "3",
         type: "BROKERAGE",
@@ -26,7 +28,8 @@ async function getData(): Promise<Account[]> {
         balance: 11121892,
         institution: "ZERODHA",
         invested: 45343,
-        profit: -251.843
+        profit: -251.843,
+        status: "INACTIVE",
         },
         {id: "4",
         type: "RETIREMENT",
@@ -34,7 +37,8 @@ async function getData(): Promise<Account[]> {
         balance: 2323299,
         institution: "PPF",
         invested: 348634,
-        profit: -25430.453
+        profit: -25430.453,
+        status: "ACTIVE",
         },    
     ]
   }

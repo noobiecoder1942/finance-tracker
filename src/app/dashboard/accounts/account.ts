@@ -12,4 +12,5 @@ type Account = {
     institution: string
     invested: number
     profit: number
+    status: string
 }

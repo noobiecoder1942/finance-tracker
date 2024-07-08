@@ -33,14 +33,33 @@ const formatBalance = (balance: number): string => {
   
     // Add negative sign back if the original balance was negative
     return balance < 0 ? `- ${formattedBalance}` : formattedBalance;
-  };
+};
+
+const getStatusColor = (status: string): string => {
+    switch (status) {
+      case 'ACTIVE':
+        return 'bg-green-500';
+      case 'INACTIVE':
+        return 'bg-custom-red';
+      case 'SUSPENDED':
+        return 'bg-orange-500';
+      default:
+        return 'bg-green-500';
+    }
+}
 
 export default function AccountCard({ account, className, ...props }: AccountCardProps) {
     return (
         <Card className={cn("w-[380px]", className)} {...props}>
-            <CardHeader>
-                <CardTitle>{account.accountNumber}</CardTitle>
-                <CardDescription>{account.institution} {account.type}</CardDescription>
+            <CardHeader className="flex flex-row justify-between">
+                <div className="grid gap-y-2">
+                    <CardTitle>{account.accountNumber}</CardTitle>
+                    <CardDescription>{account.institution} {account.type}</CardDescription>
+                </div>
+                <div className="flex flex-row items-center gap-x-2 rounded-md border px-2">
+                    <div className={`w-2 h-2 rounded-full ${getStatusColor(account.status)}`}></div>
+                    <p className="text-xs">{account.status}</p>
+                </div>
             </CardHeader>
 
             <CardContent className="grid gap-4">
