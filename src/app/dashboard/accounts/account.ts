@@ -10,4 +10,6 @@ type Account = {
     accountNumber: string
     balance: number
     institution: string
+    invested: number
+    profit: number
 }
