@@ -124,7 +124,7 @@ export default function AccountHoldingCard( {holding}: AccountHoldingCardProps) 
                 <AccountHoldingCardDetails holding={holding} />
                 <ChartComponent />
             </div>
-            <div className="border-2 rounded-md px-4">
+            <div className="border rounded-md px-4">
                 <AccountHoldingLastFiveTransactions holding={holding} />
             </div>
         </div>
