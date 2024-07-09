@@ -1,6 +1,7 @@
 "use client";
 
 import * as React from "react"
+import { usePathname } from 'next/navigation'
 import { Moon, Sun } from "lucide-react"
 import { useTheme } from "next-themes"
  
@@ -11,14 +12,56 @@ import {
   DropdownMenuItem,
   DropdownMenuTrigger,
 } from "@/components/ui/dropdown-menu"
+import {
+    Breadcrumb,
+    BreadcrumbEllipsis,
+    BreadcrumbItem,
+    BreadcrumbLink,
+    BreadcrumbList,
+    BreadcrumbPage,
+    BreadcrumbSeparator,
+  } from "@/components/ui/breadcrumb"
+
+function BreadcrumbDemo() {
+
+    const pathName = usePathname();
+    console.log(pathName.split('/'));
+    const paths = pathName.split('/').filter(Boolean);
+
+    const accumulatedPaths = paths.reduce((acc: string[], path: string, index: number) => {
+        if (index === 0) {
+            return [...acc, `/${path}`];
+        }
+        return [...acc, `${acc[index - 1]}/${path}`];
+    }, []);
+
+    console.log(accumulatedPaths);
+
+    return (
+        <Breadcrumb>
+        <BreadcrumbList className="text-xl">
+            {paths.map((path: string, index: number) => (
+                <React.Fragment key={index}>
+                    {index > 0 && <BreadcrumbSeparator />}
+                    <BreadcrumbItem>
+                    <BreadcrumbLink href={accumulatedPaths[index]}>
+                        {path}
+                    </BreadcrumbLink>
+                    </BreadcrumbItem>
+                </React.Fragment>
+            ))}
+        </BreadcrumbList>
+        </Breadcrumb>
+      );
+}
 
 export default function Header() {
 
     const { setTheme } = useTheme()
 
-    return <div className="flex gap-4 p-4 border-b justify-between">
+    return <div className="flex gap-4 p-4 border-b justify-between items-center">
         <div>
-            Header
+            <BreadcrumbDemo />
         </div>
         <div>
             <DropdownMenu>
