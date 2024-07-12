@@ -1,16 +1,15 @@
-enum AccountType {
-    BANK,
-    BROKERAGE,
-    RETIREMENT
+type AccountStatistics = {
+    accountBalance: number
+    accountInvestment: number
+    accountUnrealizedPNL: number
+    accountRealizedPNL: number
+    accountStatus: string
 }
 
 type Account = {
-    id: string
-    type: string
+    _id: string
     accountNumber: string
-    balance: number
-    institution: string
-    invested: number
-    profit: number
-    status: string
+    accountType: string
+    accountInstitution: string
+    accountStatistics: AccountStatistics
 }

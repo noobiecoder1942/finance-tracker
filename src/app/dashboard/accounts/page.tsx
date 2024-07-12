@@ -3,59 +3,41 @@
 import { Button } from "@/components/ui/button";
 import AccountCard from "./accountcard";
 import { NotebookPen, Plus } from "lucide-react";
-import { useState } from "react";
+import { useState, useEffect } from "react";
 import AccountForm from "./accountform";
-
-
-function getData(): Account[] {
-    // Fetch data from your API here.
-    return [
-        {id: "1",
-        type: "BANK",
-        accountNumber: "xxxx7890",
-        balance: 1235,
-        institution: "ICICI",
-        invested: 5000.454,
-        profit: 2000,
-        status: "ACTIVE",
-        },
-        {id: "2",
-        type: "BANK",
-        accountNumber: "xxxx1245",
-        balance: 54984,
-        institution: "SBI",
-        invested: 35000.4534,
-        profit: 8000.455,
-        status: "SUSPENDED",
-        },
-        {id: "3",
-        type: "BROKERAGE",
-        accountNumber: "xxxx5445",
-        balance: 11121892,
-        institution: "ZERODHA",
-        invested: 45343,
-        profit: -251.843,
-        status: "INACTIVE",
-        },
-        {id: "4",
-        type: "RETIREMENT",
-        accountNumber: "xxxx6234",
-        balance: 2323299,
-        institution: "PPF",
-        invested: 348634,
-        profit: -25430.453,
-        status: "ACTIVE",
-        },    
-    ]
-}
 
 export default function Accounts() {
 
-    const data = getData();
+    const [accounts, setAccounts] = useState<Account[]>([]);
+    const [loading, setLoading] = useState(false);
+    const [error, setError] = useState(null);
 
-    const bankAccounts: Account[] = data.filter(acc => acc.type === 'BANK');
-    const brokerageAccounts: Account[] = data.filter(acc => acc.type === 'BROKERAGE');
-    const retirementAccounts: Account[] = data.filter(acc => acc.type === 'RETIREMENT');
+    const fetchAccounts = async () => {
+        setLoading(true);
+        setError(null);
+        try {
+          const response = await fetch('/api/accounts');
+          if (!response.ok) {
+            throw new Error('Network response was not ok');
+          }
+          const data = await response.json();
+          setAccounts(data);
+        } catch (error: any) {
+          setError(error.message);
+        } finally {
+          setLoading(false);
+        }
+      };
+    
+      useEffect(() => {
+        fetchAccounts();
+      }, []);
+
+    console.log(accounts);
+
+    const bankAccounts = accounts.filter(acc => acc.accountType === 'BANK');
+    const brokerageAccounts = accounts.filter(acc => acc.accountType === 'BROKERAGE');
+    const retirementAccounts = accounts.filter(acc => acc.accountType === 'RETIREMENT');
 
     return <div className="flex flex-col gap-4 p-4">
         <div>

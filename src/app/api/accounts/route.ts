@@ -2,9 +2,15 @@ import dbConnect from "@/app/lib/dbConnect";
 import Account from "@/app/lib/models/account";
 import { NextRequest, NextResponse } from "next/server"
 
-// export const GET = () => {
-//     return new NextResponse('Hello, World!');
-// }
+export const GET = async (request: NextRequest) => {
+    try {
+        await dbConnect();
+        const accounts = await Account.find();
+        return new NextResponse(JSON.stringify(accounts), { status: 200 });
+    } catch (error: any) {
+        return new NextResponse("Error fetching accounts: " + error.message, { status: 500 });
+    }
+}
 
 export const POST = async (request: NextRequest) => {
     try {

@@ -54,11 +54,11 @@ export default function AccountCard({ account, className, ...props }: AccountCar
             <CardHeader className="flex flex-row justify-between">
                 <div className="grid gap-y-2">
                     <CardTitle>{account.accountNumber}</CardTitle>
-                    <CardDescription>{account.institution} {account.type}</CardDescription>
+                    <CardDescription>{account.accountInstitution.toUpperCase()} {account.accountType}</CardDescription>
                 </div>
                 <div className="flex flex-row items-center gap-x-2 rounded-md border px-2">
-                    <div className={`w-2 h-2 rounded-full ${getStatusColor(account.status)}`}></div>
-                    <p className="text-xs">{account.status}</p>
+                    <div className={`w-2 h-2 rounded-full ${getStatusColor(account.accountStatistics.accountStatus)}`}></div>
+                    <p className="text-xs">{account.accountStatistics.accountStatus}</p>
                 </div>
             </CardHeader>
 
@@ -67,14 +67,14 @@ export default function AccountCard({ account, className, ...props }: AccountCar
                 <div className="flex justify-between gap-x-4 rounded-md border p-4">
                     <div  className="text-left">
                         <p>Invested</p>
-                        <p>{formatBalance(account.invested)}</p>
+                        <p>{formatBalance(account.accountStatistics.accountBalance)}</p>
                     </div>
                     <div className="flex items-center text-right">
                         <div>
                             <p>PnL</p>
-                            <p>{formatBalance(account.profit)}</p>
+                            <p>{formatBalance(account.accountStatistics.accountRealizedPNL)}</p>
                         </div>
-                        {account.profit > 0 ? (
+                        {account.accountStatistics.accountRealizedPNL > 0 ? (
                             <MoveUp className="ml-2" color="#00ff00" size={32}/>
                             ) : (
                             <MoveDown className="ml-2" color="#ff0000" size={32}/>
@@ -86,7 +86,7 @@ export default function AccountCard({ account, className, ...props }: AccountCar
                 <div className="grid grid-cols-2 gap-4">
                     <div>
                         <p className="text-sm font-medium leading-none">Balance</p>
-                        <p className="text-sm text-gray-600">{formatBalance(account.balance)}</p>
+                        <p className="text-sm text-gray-600">{formatBalance(account.accountStatistics.accountBalance)}</p>
                     </div>
                     <div className="text-right">
                         <p className="text-sm font-medium leading-none">Date Added</p>

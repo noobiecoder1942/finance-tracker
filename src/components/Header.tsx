@@ -25,7 +25,6 @@ import {
 function BreadcrumbDemo() {
 
     const pathName = usePathname();
-    console.log(pathName.split('/'));
     const paths = pathName.split('/').filter(Boolean);
 
     const accumulatedPaths = paths.reduce((acc: string[], path: string, index: number) => {
