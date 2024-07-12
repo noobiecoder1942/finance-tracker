@@ -1,45 +1,65 @@
 "use client"
 
-import { zodResolver } from "@hookform/resolvers/zod"
-import { useForm } from "react-hook-form"
-import { z } from "zod"
-
 import { Button } from "@/components/ui/button"
-import {
-  Form,
-  FormControl,
-  FormDescription,
-  FormField,
-  FormItem,
-  FormLabel,
-  FormMessage,
-} from "@/components/ui/form"
 import { Input } from "@/components/ui/input"
-import { 
-  Dialog, 
-  DialogTrigger, 
-  DialogContent, 
-  DialogTitle, 
-  DialogDescription, 
-  DialogFooter, 
-  DialogHeader 
-} from "@/components/ui/dialog"
+import { Dialog, DialogTitle, DialogTrigger, DialogContent, DialogDescription, DialogFooter, DialogHeader } from "@/components/ui/dialog"
 import { Label } from "@/components/ui/label"
 import { Plus } from "lucide-react"
 import { Select, SelectContent, SelectGroup, SelectItem, SelectLabel, SelectTrigger, SelectValue } from "@/components/ui/select"
-
-const formSchema = z.object({
-  username: z.string().min(2, {
-    message: "Username must be at least 2 characters.",
-  }),
-})
-
+import { useState } from "react"
+import { useToast } from "@/components/ui/use-toast"
 
 interface AccountFormProps {
-  type: string;
+    type: string;
 };
 
 export default function AccountForm( {type}: AccountFormProps ) {
+
+    const [accountNumber, setAccountNumber] = useState('');
+    const [nickname, setNickname] = useState('');
+    const [selectValue, setSelectValue] = useState('');
+    // TODO Fix toasts
+    const { toast } = useToast();
+
+    const handleAddAccount = async () => {
+        const accountData = {
+            accountType: type,
+            accountNumber: accountNumber,
+            accountInstitution: selectValue,
+            accountNickname: nickname,
+            accountStatistics: {
+                  accountBalance: 0,
+                  accountInvestment: 0,
+                  accountUnrealizedPNL: 0,
+                  accountRealizedPNL: 0,
+                  accountStatus: 'ACTIVE',
+        }
+    };
+
+    try {
+        const response = await fetch('/api/accounts', {
+            method: 'POST',
+            headers: {
+                'Content-Type': 'application/json',
+            },
+            body: JSON.stringify(accountData),
+        });
+
+        const data = await response.json();
+        console.log(data.message);
+        // toast({
+        //   title: 'Success',
+        //   description: data.message,
+        // });
+    } catch (error) {
+        console.error('Error:', error);
+        toast({
+          variant: 'destructive',
+          title: 'Error',
+          description: 'Failed to add account',
+        });
+    }
+}
 
 
   const renderSelectGroup = ( type: string) => {
@@ -51,7 +71,7 @@ export default function AccountForm( {type}: AccountFormProps ) {
               Bank
             </Label>
           
-            <Select>
+            <Select onValueChange={setSelectValue}>
               <SelectTrigger className="w-[180px]">
                 <SelectValue placeholder="Select a bank" />
               </SelectTrigger>
@@ -75,7 +95,7 @@ export default function AccountForm( {type}: AccountFormProps ) {
               Broker
             </Label>
           
-            <Select>
+            <Select onValueChange={setSelectValue}>
               <SelectTrigger className="w-[180px]">
                 <SelectValue placeholder="Select a broker" />
               </SelectTrigger>
@@ -98,7 +118,7 @@ export default function AccountForm( {type}: AccountFormProps ) {
               Contributor
             </Label>
           
-            <Select>
+            <Select onValueChange={setSelectValue}>
               <SelectTrigger className="w-[180px]">
                 <SelectValue placeholder="Select a contributor" />
               </SelectTrigger>
@@ -118,6 +138,7 @@ export default function AccountForm( {type}: AccountFormProps ) {
   };
 
   return (
+    <>
     <Dialog>
       <DialogTrigger asChild>
         <Button className="w-100">
@@ -138,18 +159,22 @@ export default function AccountForm( {type}: AccountFormProps ) {
             </Label>
             <Input
               id="name"
+              value={accountNumber}
+              onChange={(e) => setAccountNumber(e.target.value)}
               defaultValue=""
               className="col-span-3"
               placeholder="1234567890"
             />
           </div>
           <div className="grid grid-cols-4 items-center gap-4">
-            <Label htmlFor="username" className="text-right">
+            <Label htmlFor="nickname" className="text-right">
               Nickname
             </Label>
             <Input
               id="username"
               defaultValue=""
+              value={nickname}
+              onChange={(e) => setNickname(e.target.value)}
               className="col-span-3"
               placeholder="optional"
             />
@@ -158,9 +183,10 @@ export default function AccountForm( {type}: AccountFormProps ) {
         </div>
         <DialogFooter>
           <Button type="submit">Discard Changes</Button>
-          <Button type="submit">Add Account</Button>
+          <Button type="submit" onClick={handleAddAccount}>Add Account</Button>
         </DialogFooter>
       </DialogContent>
     </Dialog>
+    </>
   )
 }
