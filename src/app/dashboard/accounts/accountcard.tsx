@@ -9,6 +9,7 @@ import {
   CardTitle,
 } from "@/components/ui/card"
 import { ExternalLink, NotebookPen, CandlestickChart, BellRing, MoveUp, MoveDown } from "lucide-react"
+import Link from "next/link";
 
 type CardProps = React.ComponentProps<typeof Card>;
 
@@ -111,8 +112,11 @@ export default function AccountCard({ account, className, ...props }: AccountCar
                 <Button className="w-full">
                     <ExternalLink className="mr-2 h-4 w-4" />Transaction History
                 </Button>
+
                 <Button className="w-full">
-                    <CandlestickChart className="mr-2 h-4 w-4" />See Holdings
+                    <Link href={`accounts/${account._id}`} className="flex flex-row">
+                        <CandlestickChart className="mr-2 h-4 w-4" />See Holdings
+                    </Link>
                 </Button>
             </CardFooter>
         </Card>
