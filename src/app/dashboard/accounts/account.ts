@@ -1,3 +1,19 @@
+type Transaction = {
+    _id: string
+    transactionType: string
+    holding: Holding
+    date: Date
+    units: number
+    price: number
+}
+
+type Holding = {
+    assetClass: string
+    units: number
+    symbol: string
+    exchange: string
+}
+
 type AccountStatistics = {
     accountBalance: number
     accountInvestment: number
@@ -12,4 +28,6 @@ type Account = {
     accountType: string
     accountInstitution: string
     accountStatistics: AccountStatistics
+    accountTransactions: Transaction[]
+    accountHoldings: Holding[]
 }

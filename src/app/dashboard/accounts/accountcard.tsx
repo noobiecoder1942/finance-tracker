@@ -100,7 +100,7 @@ export default function AccountCard({ account, className, ...props }: AccountCar
             </CardContent>
 
             <CardFooter className="flex flex-col gap-y-2">
-                <TransactionForm/>
+                <TransactionForm accid={account._id}/>
                 <Button className="w-full">
                     <ExternalLink className="mr-2 h-4 w-4" />Transaction History
                 </Button>

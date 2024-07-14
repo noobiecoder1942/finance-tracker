@@ -4,15 +4,27 @@ import { Button } from "@/components/ui/button"
 import { Input } from "@/components/ui/input"
 import { Dialog, DialogTitle, DialogTrigger, DialogContent, DialogDescription, DialogFooter, DialogHeader } from "@/components/ui/dialog"
 import { Label } from "@/components/ui/label"
-import { NotebookPen } from "lucide-react"
+import { CalendarIcon, NotebookPen } from "lucide-react"
 import { Select, SelectContent, SelectGroup, SelectItem, SelectLabel, SelectTrigger, SelectValue } from "@/components/ui/select"
 import { useState } from "react"
+import React from "react"
+import { Popover, PopoverContent, PopoverTrigger } from "@/components/ui/popover"
+import { format } from "date-fns"
+import { cn } from "@/lib/utils"
+import { Calendar } from "@/components/ui/calendar"
 
-export default function TransactionForm( ) {
+interface TransactionFormProps {
+    accid: string;
+};
+
+export default function TransactionForm({ accid }: TransactionFormProps) {
 
     const [assetClass, setAssetClass] = useState('');
     const [assetExchange, setAssetExchange] = useState('');
     const [assetSymbol, setAssetSymbol] = useState('');
+    const [date, setDate] = React.useState<Date>()
+    const [units, setUnits] = useState(0);
+    const [price, setPrice] = useState(0);
 
     const classSelectGroup = () => {
         return (
@@ -73,6 +85,70 @@ export default function TransactionForm( ) {
         </div>
     }
 
+    const dateField = () => {
+        return (
+            <div className="grid grid-cols-4 items-center gap-4">
+                <Label htmlFor="name" className="text-right">
+                    Date
+                </Label>
+                <Popover>
+                    <PopoverTrigger asChild>
+                        <Button
+                        variant={"outline"}
+                        className={cn(
+                            "w-[280px] justify-start text-left font-normal",
+                            !date && "text-muted-foreground"
+                        )}
+                        >
+                        <CalendarIcon className="mr-2 h-4 w-4" />
+                        {date ? format(date, "PPP") : <span>Pick a date</span>}
+                        </Button>
+                    </PopoverTrigger>
+                    <PopoverContent className="w-auto p-0">
+                        <Calendar
+                        mode="single"
+                        selected={date}
+                        onSelect={setDate}
+                        initialFocus
+                        />
+                    </PopoverContent>
+                </Popover>
+            </div>
+        )
+    }
+
+    const unitsField = () => {
+        return <div className="grid grid-cols-4 items-center gap-4">
+            <Label htmlFor="name" className="text-right">
+                Units
+            </Label>
+            <Input
+            id="name"
+            value={units}
+            onChange={(e) => setUnits(Number(e.target.value))}
+            defaultValue=""
+            className="col-span-3"
+            placeholder="1000"
+            />
+        </div>        
+    }
+
+    const priceField = () => {
+        return <div className="grid grid-cols-4 items-center gap-4">
+            <Label htmlFor="name" className="text-right">
+                Price
+            </Label>
+            <Input
+            id="name"
+            value={price}
+            onChange={(e) => setPrice(Number(e.target.value))}
+            defaultValue=""
+            className="col-span-3"
+            placeholder="1000"
+            />
+        </div>        
+    }
+
     return (
         <>
             <Dialog>
@@ -92,6 +168,9 @@ export default function TransactionForm( ) {
                         {classSelectGroup()}
                         {assetClass === "stocks" ? exchangeSelectGroup() : null}
                         {assetClass === "stocks" ? symbolField() : null}
+                        {assetClass !== "" ? dateField() : null}
+                        {assetClass !== "" ? unitsField() : null}
+                        {assetClass !== ""? priceField() : null}
                     </div>
                     <DialogFooter>
                         <Button type="submit">Discard Changes</Button>
