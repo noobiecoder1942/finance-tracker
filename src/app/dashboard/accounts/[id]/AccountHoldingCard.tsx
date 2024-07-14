@@ -15,7 +15,7 @@ function AccountHoldingCardDetails( {holding}: AccountHoldingCardProps) {
         <Card className="w-full max-w-fit border my-4" >
             <CardHeader className="flex flex-row justify-between">
                 <div className="grid gap-y-2">
-                    <CardTitle>{holding.ticker}</CardTitle>
+                    <CardTitle>ASHOKLEY</CardTitle>
                     <CardDescription>ASHOK LEYLAND</CardDescription>
                 </div>
             </CardHeader>
