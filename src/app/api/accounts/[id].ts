@@ -12,3 +12,12 @@ export const GET = async (request: NextRequest) => {
         return new NextResponse("Error fetching account with ID: " + request + "" + error.message, { status: 500 });
     }
 }
+
+export const PATCH = async (request: NextRequest) => {
+    try {
+        await dbConnect();
+        return new NextResponse("Account updated successfully", { status: 200 });
+    } catch (error: any) { 
+        return new NextResponse("Error updating account: " + error.message, { status: 500 });
+    }
+}

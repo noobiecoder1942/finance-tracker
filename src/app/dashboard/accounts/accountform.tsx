@@ -62,7 +62,7 @@ export default function AccountForm( {type}: AccountFormProps ) {
 }
 
 
-  const renderSelectGroup = ( type: string) => {
+  const renderSelectGroup = ( type: string ) => {
     switch (type) {
       case 'BANK':
         return (

@@ -1,15 +1,9 @@
 import { cn } from "@/lib/utils"
 import { Button } from "@/components/ui/button"
-import {
-  Card,
-  CardContent,
-  CardDescription,
-  CardFooter,
-  CardHeader,
-  CardTitle,
-} from "@/components/ui/card"
-import { ExternalLink, NotebookPen, CandlestickChart, BellRing, MoveUp, MoveDown } from "lucide-react"
+import { Card, CardContent, CardDescription, CardFooter, CardHeader, CardTitle } from "@/components/ui/card"
+import { ExternalLink, CandlestickChart, MoveUp, MoveDown } from "lucide-react"
 import Link from "next/link";
+import TransactionForm from "./transactionform";
 
 type CardProps = React.ComponentProps<typeof Card>;
 
@@ -106,9 +100,7 @@ export default function AccountCard({ account, className, ...props }: AccountCar
             </CardContent>
 
             <CardFooter className="flex flex-col gap-y-2">
-                <Button className="w-full">
-                    <NotebookPen  className="mr-2 h-4 w-4" />Record Transaction
-                </Button>
+                <TransactionForm/>
                 <Button className="w-full">
                     <ExternalLink className="mr-2 h-4 w-4" />Transaction History
                 </Button>
