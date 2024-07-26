@@ -11,8 +11,8 @@ export default async function AccountHoldings() {
     // const results = await yahooFinance.historical('AAPL', {period1: '2021-06-28'});
 
     const accountHoldingsList: Holding[] = [
-        {assetClass: "STOCKS", units: 50, symbol: "AAPL", exchange: "NYSE"},
-        {assetClass: "STOCKS", units: 50, symbol: "GOOGL", exchange: "NYSE"},
+        {assetClass: "STOCKS", symbol: "AAPL", exchange: "NYSE"},
+        {assetClass: "STOCKS", symbol: "GOOGL", exchange: "NYSE"},
     ]
 
     return <div className="flex flex-col gap-4 p-4">

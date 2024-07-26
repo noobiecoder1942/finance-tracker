@@ -22,9 +22,41 @@ export default function TransactionForm({ accid }: TransactionFormProps) {
     const [assetClass, setAssetClass] = useState('');
     const [assetExchange, setAssetExchange] = useState('');
     const [assetSymbol, setAssetSymbol] = useState('');
-    const [date, setDate] = React.useState<Date>()
+    const [date, setDate] = React.useState<Date>();
     const [units, setUnits] = useState(0);
     const [price, setPrice] = useState(0);
+
+    const handleAddTransaction = async () => {
+
+        const holding: Holding = {
+            assetClass: assetClass,
+            symbol: assetSymbol,
+            exchange: assetExchange
+        }
+
+        const transactionData = {
+            accountId: accid,
+            transactionType: 'BUY',
+            holding: holding,
+            date: date,
+            units: units,
+            price: price
+        };
+
+        try {
+            const response = await fetch(`/api/transactions`, {
+                method: 'POST',
+                headers: {
+                    'Content-Type': 'application/json',
+                },
+                body: JSON.stringify(transactionData),
+            });
+            const data = await response.json();
+            console.log(data.message);
+        } catch (error) {
+            console.error('Error:', error);
+        }
+    }
 
     const classSelectGroup = () => {
         return (
@@ -174,7 +206,7 @@ export default function TransactionForm({ accid }: TransactionFormProps) {
                     </div>
                     <DialogFooter>
                         <Button type="submit">Discard Changes</Button>
-                        <Button type="submit">Add Transaction</Button>
+                        <Button type="submit" onClick={handleAddTransaction}>Add Transaction</Button>
                     </DialogFooter>
                 </DialogContent>
             </Dialog>

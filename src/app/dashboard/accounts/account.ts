@@ -1,5 +1,6 @@
 type Transaction = {
     _id: string
+    accountId: string
     transactionType: string
     holding: Holding
     date: Date
@@ -9,7 +10,6 @@ type Transaction = {
 
 type Holding = {
     assetClass: string
-    units: number
     symbol: string
     exchange: string
 }
