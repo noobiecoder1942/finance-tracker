@@ -5,6 +5,7 @@ import AccountCard from "./accountcard";
 import { NotebookPen, Plus } from "lucide-react";
 import { useState, useEffect } from "react";
 import AccountForm from "./accountform";
+import { Skeleton } from "@/components/ui/skeleton";
 
 export default function Accounts() {
 
@@ -46,7 +47,8 @@ export default function Accounts() {
                 <AccountForm type="BANK"/>
             </div>
             <div className="flex flex-row gap-4">
-                {bankAccounts.map((acc, index) => (
+                {loading ? <Skeleton className="h-[468px] w-[380px] rounded-xl"/> : null}
+                {!loading && bankAccounts.map((acc, index) => (
                     <AccountCard key={index} account={acc}
                     />
                 ))}
@@ -58,7 +60,8 @@ export default function Accounts() {
                 <AccountForm type="BROKERAGE"/>
             </div>
             <div className="flex flex-row gap-4">
-                {brokerageAccounts.map((acc, index) => (
+                {loading ? <Skeleton className="h-[468px] w-[380px] rounded-xl"/> : null}
+                {!loading && brokerageAccounts.map((acc, index) => (
                     <AccountCard key={index} account={acc}
                     />
                 ))}
@@ -70,7 +73,8 @@ export default function Accounts() {
                 <AccountForm type="RETIREMENT"/>
             </div>
             <div className="flex flex-row gap-4">
-                {retirementAccounts.map((acc, index) => (
+                {loading ? <Skeleton className="h-[468px] w-[380px] rounded-xl"/> : null}
+                {!loading && retirementAccounts.map((acc, index) => (
                     <AccountCard key={index} account={acc}
                     />
                 ))}
