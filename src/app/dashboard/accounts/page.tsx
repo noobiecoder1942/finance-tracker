@@ -34,8 +34,6 @@ export default function Accounts() {
         fetchAccounts();
       }, []);
 
-    console.log(accounts);
-
     const bankAccounts = accounts.filter(acc => acc.accountType === 'BANK');
     const brokerageAccounts = accounts.filter(acc => acc.accountType === 'BROKERAGE');
     const retirementAccounts = accounts.filter(acc => acc.accountType === 'RETIREMENT');
