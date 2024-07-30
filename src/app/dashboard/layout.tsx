@@ -1,9 +1,12 @@
 "use client";
 import { Inter } from "next/font/google";
 import "../globals.css";
-import Sidebar from "@/components/Sidebar";
+import { Sidebar } from "@/components/sidebar/Sidebar";
 import Header from "@/components/Header";
 import { useState } from "react";
+import { useSidebarToggle } from "@/hooks/use-sidebar-toggle";
+import { useStore } from "@/hooks/use-store";
+import { cn } from "@/lib/utils";
 
 const inter = Inter({ subsets: ["latin"] });
 
@@ -13,20 +16,18 @@ export default function RootLayout({
   children: React.ReactNode;
 }>) {
 
-    const [isSidebarOpen, setIsSidebarOpen] = useState(true);
+    const sidebar = useStore(useSidebarToggle, (state) => state);
 
-    const handleToggleSidebar = (isOpen: boolean) => {
-        setIsSidebarOpen(isOpen);
-    };
+    if (!sidebar) return null;
 
     return (
-        <section className="flex items-start justify-between">
-            <div className={`transition-all min-h-screen border-r 
-                ${isSidebarOpen ? 'w-[300px] min-w-[300px]' : 'w-[50px] min-w-[50px]'}`}>
-                <Sidebar onToggle={handleToggleSidebar} />
-            </div>
+        <section>
+            <Sidebar />
 
-            <div className="grid w-full h-full">
+            <div className={cn(
+          "min-h-[calc(100vh_-_56px)] transition-[margin-left] ease-in-out duration-300",
+          sidebar?.isOpen === false ? "lg:ml-[90px]" : "lg:ml-72"
+        )}>
                 <Header />
                 {children}
             </div>
