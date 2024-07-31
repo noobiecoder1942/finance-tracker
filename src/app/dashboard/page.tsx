@@ -1,4 +1,8 @@
+"use client";
+
 import { columns } from "@/components/dashboard/columns";
+import SunburstCard from "@/components/dashboard/Overview";
+import MyResponsiveSunburst from "@/components/dashboard/Overview";
 import { DataTable } from "@/components/dashboard/table";
 import { Card, CardContent, CardTitle } from "@/components/ui/card";
 
@@ -28,10 +32,16 @@ export default function Dashboard() {
         },
     ]
 
+
+
     return (
         <div className="grid gap-4 p-4">
             <div className="grid gap-4 grid-cols-2">
-                <Card className="h-[600px]"/>
+                <Card className="h-[600px]">
+                    <CardContent className="h-[400px] w-[400px]">
+                        <SunburstCard />
+                    </CardContent>
+                </Card>
                 <div className="grid gap-4 h-[600px]">
                     <Card className="h-full">
                         <CardTitle className="pl-4 pt-4 pb-2">
@@ -53,4 +63,10 @@ export default function Dashboard() {
             </div>
         </div>
     )
+
+    // return (
+    //     <div className="h-[1200px] w-[1200px] border-red-500 border-2">
+    //         <SunburstCard />
+    //     </div>
+    // )
 }
