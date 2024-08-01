@@ -1,12 +1,22 @@
-import { ResponsiveSunburst } from '@nivo/sunburst';
+import { DatumId, ResponsiveSunburst } from '@nivo/sunburst';
+import { useTheme as useNextThemes } from 'next-themes';
 
-
+interface CustomToolTipProps {
+  id: DatumId;
+  value: number;
+  color: string;
+}
 
 const MyResponsiveSunburst = () => {
 
+  const { resolvedTheme } = useNextThemes();
+
+  const textColor = resolvedTheme === 'dark' ? '#ffffff' : '#000000';
+
   const newdata = {
-    "name": "nivo",
-    "color": "hsl(189, 70%, 50%)",
+    "name": "Total",
+    "value": "₹ 1.8 Cr",
+    "color": "hsl(245.02793296089385, 70.19607843137256%, 50%)",
     "children": [
       {
         "name": "viz",
@@ -426,6 +436,23 @@ const MyResponsiveSunburst = () => {
     ]
   }
 
+
+  const CustomTooltip = ({ id, value, color }: CustomToolTipProps) => (
+    <div
+      style={{
+        padding: '12px 16px',
+        background: '#fff',
+        color: '#333',
+        borderRadius: '4px',
+        boxShadow: '0 2px 4px rgba(0, 0, 0, 0.15)',
+      }}
+    >
+      <strong style={{ color }}>{id}</strong>
+      <br />
+      Value: {value}
+    </div>
+  );
+
     return <ResponsiveSunburst
         data={newdata}
         margin={{ top: 10, right: 10, bottom: 10, left: 10 }}
@@ -454,6 +481,43 @@ const MyResponsiveSunburst = () => {
                 ]
             ]
         }}
+        tooltip={({ id, value, color }) => (
+          <CustomTooltip id={id} value={value} color={color} />
+        )}
+        layers={[
+          'arcs',
+          'arcLabels',
+          ({ centerX, centerY }) => (
+            <>
+              <text
+                x={centerX}
+                y={centerY-15}
+                textAnchor="middle"
+                dominantBaseline="central"
+                style={{
+                  fontSize: '22px',
+                  fontWeight: '600',
+                  fill: textColor,
+                }}
+              >
+                {newdata.name}
+              </text>
+              <text
+                x={centerX}
+                y={centerY + 15}
+                textAnchor="middle"
+                dominantBaseline="central"
+                style={{
+                  fontSize: '18px',
+                  fontWeight: '400',
+                  fill: textColor,
+                }}
+              >
+                {newdata.value}
+              </text>
+            </>
+          ),
+        ]}
     />
     }
 
