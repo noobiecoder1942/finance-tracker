@@ -38,6 +38,9 @@ export default function Dashboard() {
         <div className="grid gap-4 p-4">
             <div className="grid gap-4 grid-cols-2">
                 <Card className="h-[600px]">
+                        <CardTitle className="pl-4 pt-4 pb-2">
+                            Overview
+                        </CardTitle>
                     <CardContent className="h-[400px] w-[400px]">
                         <SunburstCard />
                     </CardContent>
@@ -63,10 +66,4 @@ export default function Dashboard() {
             </div>
         </div>
     )
-
-    // return (
-    //     <div className="h-[1200px] w-[1200px] border-red-500 border-2">
-    //         <SunburstCard />
-    //     </div>
-    // )
 }

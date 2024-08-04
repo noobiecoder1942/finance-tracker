@@ -19,8 +19,9 @@ const MyResponsiveSunburst = () => {
     "color": "hsl(245.02793296089385, 70.19607843137256%, 50%)",
     "children": [
       {
-        "name": "viz",
+        "name": "ICICI XXX2380",
         "color": "hsl(95, 70%, 50%)",
+        "value": "₹ 1.8 Cr",
         "children": [
           {
             "name": "stack",
@@ -29,22 +30,22 @@ const MyResponsiveSunburst = () => {
               {
                 "name": "cchart",
                 "color": "hsl(337, 70%, 50%)",
-                "loc": 24450
+                "loc": "54353"
               },
               {
                 "name": "xAxis",
                 "color": "hsl(27, 70%, 50%)",
-                "loc": 155849
+                "loc": "15618"
               },
               {
                 "name": "yAxis",
                 "color": "hsl(208, 70%, 50%)",
-                "loc": 71403
+                "loc": "121385"
               },
               {
                 "name": "layers",
                 "color": "hsl(8, 70%, 50%)",
-                "loc": 31486
+                "loc": "594326"
               }
             ]
           },
